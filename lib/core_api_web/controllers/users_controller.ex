@@ -5,7 +5,7 @@ defmodule CoreApiWeb.UsersController do
     users = [
       %{id: 1, name: "John Doe"},
       %{id: 2, name: "Jane Doe"},
-      %{id: 3, name: "Jim Doe"},
+      %{id: 3, name: "Jim Doe"}
     ]
 
     conn

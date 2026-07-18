@@ -18,7 +18,10 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 * Source: https://github.com/phoenixframework/phoenix
 
 
-PORT=5000 iex \
+PORT=4000 iex \
   --name "core_api@$(ipconfig getifaddr en0)" \
   --cookie core_cluster_cookie \
   -S mix phx.server
+
+# macOS: port 5000 is often taken by AirPlay. Prefer PORT=4000,
+# or use http://127.0.0.1:PORT (not localhost) if you keep 5000.
