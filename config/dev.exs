@@ -1,5 +1,14 @@
 import Config
 
+current_ip =
+  case :os.type() do
+    {:unix, :darwin} ->
+      System.cmd("ipconfig", ["getifaddr", "en0"]) |> elem(0) |> String.trim()
+
+    _ ->
+      "127.0.0.1"
+  end
+
 # core_auth Repo (config of path deps is not loaded automatically)
 config :core_auth, CoreAuth.Repo,
   username: "postgres",
@@ -69,3 +78,16 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+config :libcluster,
+  topologies: [
+    api: [
+      strategy: Cluster.Strategy.Epmd,
+      config: [
+        hosts: [
+          :"core_api@#{current_ip}",
+          :"invest@#{current_ip}"
+        ]
+      ]
+    ]
+  ]

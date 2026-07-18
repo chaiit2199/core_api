@@ -52,7 +52,8 @@ defmodule CoreApi.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:core_auth, path: "../core_auth"}
+      {:core_auth, path: "../core_auth"},
+      {:libcluster, "~> 3.5"}
     ]
   end
 

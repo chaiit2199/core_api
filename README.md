@@ -16,3 +16,9 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 * Docs: https://hexdocs.pm/phoenix
 * Forum: https://elixirforum.com/c/phoenix-forum
 * Source: https://github.com/phoenixframework/phoenix
+
+
+PORT=5000 iex \
+  --name "core_api@$(ipconfig getifaddr en0)" \
+  --cookie core_cluster_cookie \
+  -S mix phx.server

@@ -60,4 +60,19 @@ defmodule CoreApiWeb.AuthController do
             |> json(%{errors: errors})
         end
     end
+
+    def refresh_token(conn, %{"refresh_token" => refresh_token}) do
+        case Token.verify_refresh_token(refresh_token) do
+          {:ok, user} ->
+            {:ok, access_token} = Token.generate_access_token(user)
+            conn
+            |> put_status(:ok)
+            |> json(%{access_token: access_token})
+          {:error, _} ->
+            conn
+            |> put_status(:unauthorized)
+            |> json(%{message: "Refresh token không hợp lệ"})
+        end
+    end
+
 end

@@ -7,9 +7,12 @@ defmodule CoreApi.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies) || []
+
     children = [
       CoreApiWeb.Telemetry,
       # CoreApi.Repo,
+      {Cluster.Supervisor, [topologies, [name: CoreApi.ClusterSupervisor]]},
       {DNSCluster, query: Application.get_env(:core_api, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: CoreApi.PubSub},
       # Start a worker by calling: CoreApi.Worker.start_link(arg)
